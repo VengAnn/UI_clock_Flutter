@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # test1
 
 A new Flutter project.
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# UI_clock_Flutter
+>>>>>>> 9c28564578bd718eff2339f21fa0521c7e1eb268

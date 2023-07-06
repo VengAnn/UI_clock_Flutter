@@ -61,14 +61,29 @@ class _ClockState extends State<Clock> {
     ));
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          alignment: Alignment.topRight,
+          child: Image.network(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ65i9VfqLfb9OWP2gtcvZ8vj1I0gTlaB0wXA&usqp=CAU",
+            fit: BoxFit.contain,
+          ),
+        ),
         title: Text(
-          currentDate,
+          "${currentDate}",
           style: const TextStyle(
             fontSize: 24, // Set the font size
             color: Colors.blue,
           ),
         ),
         backgroundColor: color,
+        leading: Row(
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.home),
+            ),
+          ],
+        ),
       ),
       body: Container(
         color: Colors.white,

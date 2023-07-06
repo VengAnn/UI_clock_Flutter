@@ -85,6 +85,27 @@ class _ClockState extends State<Clock> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.home),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.search),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.shop),
+              iconSize: 50,
+              color: Colors.blue,
+            ),
+          ],
+        ),
+      ),
       body: Container(
         color: Colors.white,
         //color:  color, //color is the obj random color by ann created;on top or above

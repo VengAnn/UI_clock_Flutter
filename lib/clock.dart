@@ -14,14 +14,27 @@ class Clock extends StatefulWidget {
 class _ClockState extends State<Clock> {
   Timer? timer;
   late DateTime currentTime;
+  Color color = Colors.green;
 
+  List<Color> lsColors = [
+    Colors.black,
+    Colors.white,
+    Colors.pink,
+    Colors.green,
+    Colors.blueGrey,
+    Colors.redAccent,
+    Colors.cyan,
+  ];
   @override
   void initState() {
     super.initState();
     currentTime = DateTime.now();
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         currentTime = DateTime.now();
+
+        //genarate colors radom
+        color = lsColors[Random().nextInt(lsColors.length)];
       });
     });
   }
@@ -42,8 +55,8 @@ class _ClockState extends State<Clock> {
         .format(currentTime); // Format the current date
     final currentTimeString = DateFormat('HH:mm:ss').format(DateTime.now());
     // Set the status bar color and brightness
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.blue, // Set the status bar color
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.orangeAccent, // Set the status bar color
       statusBarBrightness: Brightness.dark, // Set the status bar icon color
     ));
     return Scaffold(
@@ -55,104 +68,110 @@ class _ClockState extends State<Clock> {
             color: Colors.blue,
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 173, 238, 32),
+        backgroundColor: color,
       ),
-      body: Column(
-          //
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                alignment: Alignment.center,
-                child: Container(
-                  width: 360,
-                  height: 360,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 126, 177, 60),
-                    border: Border.all(color: Colors.black45, width: 9),
-                    borderRadius: BorderRadius.circular(180),
-                  ),
-                  child: Stack(
-                    children: <Widget>[
-                      Image.network(
-                        'https://png.pngtree.com/png-clipart/20220705/ourmid/pngtree-clock-face-no-hand-roboto-font-png-image_5683165.png',
-                      ),
-                      // Hour
-                      Transform.rotate(
-                        angle: hoursAngle,
-                        alignment: Alignment.center,
-                        child: Container(
-                          alignment: Alignment(0, -0.35),
+      body: Container(
+        color: Colors.white,
+        //color:  color, //color is the obj random color by ann created;on top or above
+        child: Column(
+            //
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 360,
+                    height: 360,
+                    decoration: BoxDecoration(
+                      color: color,
+                      border: Border.all(
+                          color: const Color.fromARGB(115, 202, 20, 20),
+                          width: 9),
+                      borderRadius: BorderRadius.circular(180),
+                    ),
+                    child: Stack(
+                      children: <Widget>[
+                        Image.network(
+                          'https://png.pngtree.com/png-clipart/20220705/ourmid/pngtree-clock-face-no-hand-roboto-font-png-image_5683165.png',
+                        ),
+                        // Hour
+                        Transform.rotate(
+                          angle: hoursAngle,
+                          alignment: Alignment.center,
                           child: Container(
-                            height: 80,
-                            width: 8,
+                            alignment: const Alignment(0, -0.35),
+                            child: Container(
+                              height: 80,
+                              width: 8,
+                              decoration: BoxDecoration(
+                                color: Colors.pink,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Minutes
+                        Transform.rotate(
+                          angle: minutesAngle,
+                          alignment: Alignment.center,
+                          child: Container(
+                            alignment: const Alignment(0, -0.45),
+                            child: Container(
+                              height: 110,
+                              width: 5,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Seconds
+                        Transform.rotate(
+                          angle: secondsAngle,
+                          alignment: Alignment.center,
+                          child: Container(
+                            alignment: const Alignment(0, -0.40),
+                            child: Container(
+                              height: 140,
+                              width: 2,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Dot
+                        Container(
+                          alignment: Alignment.center,
+                          child: Container(
+                            height: 15,
+                            width: 15,
                             decoration: BoxDecoration(
-                              color: Colors.pink,
+                              border: Border.all(color: Colors.white, width: 2),
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                         ),
-                      ),
-                      // Minutes
-                      Transform.rotate(
-                        angle: minutesAngle,
-                        alignment: Alignment.center,
-                        child: Container(
-                          alignment: Alignment(0, -0.45),
-                          child: Container(
-                            height: 110,
-                            width: 5,
-                            decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(10),
+                        Positioned(
+                          left: 120,
+                          bottom: 100,
+                          //right: 50,
+                          child: Text(
+                            "${currentTimeString}",
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
                             ),
                           ),
-                        ),
-                      ),
-                      // Seconds
-                      Transform.rotate(
-                        angle: secondsAngle,
-                        alignment: Alignment.center,
-                        child: Container(
-                          alignment: Alignment(0, -0.40),
-                          child: Container(
-                            height: 140,
-                            width: 2,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                      // Dot
-                      Container(
-                        alignment: Alignment.center,
-                        child: Container(
-                          height: 15,
-                          width: 15,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white, width: 2),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 120,
-                        bottom: 100,
-                        //right: 50,
-                        child: Text(
-                          "${currentTimeString}",
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                )),
-          ]),
+                        )
+                      ],
+                    ),
+                  )),
+            ]),
+      ),
     );
   }
 }
